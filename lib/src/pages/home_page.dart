@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:peliculas/src/widgets/card_swiper_widget.dart';
+
 
 
 class HomePage extends StatelessWidget {
@@ -29,25 +30,8 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _swiperTarjetas(){
-    return Container(
-      padding: EdgeInsets.only(top: 10.0),
-      child: CarouselSlider.builder(
-        itemCount: 5,
-        itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-        Container(
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.symmetric(horizontal: 5.0),
-          decoration: BoxDecoration(
-            color: Colors.amber
-          ),
-          child: Text('text ${itemIndex.toString()}', style: TextStyle(fontSize: 16.0),),
-        ),
-        options: CarouselOptions(
-          autoPlay: true,//Hace que pase pestañas solo
-          aspectRatio: 2.0,
-          enlargeCenterPage: true,//Hace que la pagina central se vea más grande
-        ),
-      )
+    return CardSwiperWidget(
+      peliculas: [1, 2, 3, 4, 5],
     );
   }
 }
