@@ -66,6 +66,13 @@ class Movie {
     video = json['video'];
     voteAverage = json['vote_average'] / 1;
   }
+
+  getPosterImg(){
+    if(posterPath == null){
+      return 'https://previews.123rf.com/images/kaymosk/kaymosk1804/kaymosk180400006/100130939-error-404-page-not-found-error-with-glitch-effect-on-screen-vector-illustration-for-your-design-.jpg';
+    }
+    return 'https://image.tmdb.org/t/p/w500/$posterPath';
+  }
 }
 
 
