@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/models/models.dart';
 
 class MovieSlider extends StatelessWidget {
+
+  final List<Movie>movies;
+  final String? title;
+  MovieSlider({required this.movies, this.title});
+
   @override
   Widget build(BuildContext context) {
+
+    if(this.movies.length == 0){
+      return Container(
+        width: double.infinity,
+        height: 260,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Container(
       width: double.infinity,
       height: 260,
@@ -13,7 +28,7 @@ class MovieSlider extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Populares',
+              title ?? 'Popular',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
@@ -23,8 +38,8 @@ class MovieSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (_, int index) => _MoviePoster(),
-              itemCount: 20,
+              itemBuilder: (_, int index) => _MoviePoster(movie: movies[index]),
+              itemCount: movies.length,
             ),
           )
         ],
@@ -34,6 +49,11 @@ class MovieSlider extends StatelessWidget {
 }
 
 class _MoviePoster extends StatelessWidget {
+
+  final Movie movie;
+
+  const _MoviePoster({required this.movie});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +69,7 @@ class _MoviePoster extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: AssetImage('assets/img/no-image.jpg'),
-                image: NetworkImage('https://via.placeholder.com/300x400'),
+                image: NetworkImage(movie.flullPosterImg),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover
@@ -62,7 +82,7 @@ class _MoviePoster extends StatelessWidget {
           ),
 
           Text(
-            'Las Cronicas de Narcia: El Leon, La Bruja y El Ropero',
+            movie.title,
             overflow: TextOverflow.ellipsis,//Que cuando no haya más espacio ponga ...
             maxLines: 2,//Maximo de lineas de texto
             textAlign: TextAlign.center,
