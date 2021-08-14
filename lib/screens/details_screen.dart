@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   @override
@@ -14,6 +15,11 @@ class DetailsScreen extends StatelessWidget {
           SliverList(
               delegate: SliverChildListDelegate([
             _PosterAndTitle(),
+            _Overview(),
+            _Overview(),
+            _Overview(),
+            CastingCards(),
+
           ]))
         ],
       ),
@@ -35,6 +41,7 @@ class _CustomAppbar extends StatelessWidget {
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
+          padding: EdgeInsets.only(bottom: 10),
           color: Colors.black12,
           child: Text(
             'movie.title',
@@ -54,7 +61,6 @@ class _CustomAppbar extends StatelessWidget {
 class _PosterAndTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
@@ -86,16 +92,32 @@ class _PosterAndTitle extends StatelessWidget {
                 style: textTheme.subtitle1,
                 overflow: TextOverflow.ellipsis,
               ),
-
-              Row(children: [
-                Icon(Icons.star_rate_outlined, size: 15, color: Colors.grey),
-                SizedBox(width: 5,),
-                Text('movie.voteAverage', style: textTheme.caption),
-              ],)
+              Row(
+                children: [
+                  Icon(Icons.star_rate_outlined, size: 15, color: Colors.grey),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('movie.voteAverage', style: textTheme.caption),
+                ],
+              )
             ],
           )
         ],
       ),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: Text(
+          'Dolore id veniam dolore consectetur non minim sint mollit ullamco cupidatat nisi consequat mollit ipsum. ',
+          textAlign: TextAlign.justify,
+          style: Theme.of(context).textTheme.subtitle1),
     );
   }
 }
