@@ -12,6 +12,8 @@ class MoviesProvider extends ChangeNotifier{
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
 
+  int _popularPage = 0;
+
   MoviesProvider(){
     print('Movies Provier Inicializado');
 
@@ -19,38 +21,36 @@ class MoviesProvider extends ChangeNotifier{
     this.getPopularMovies();
   }
 
-
-  getOnDisplayMovies() async{
+  Future<String> _getJsonData(String endPoint, [int page = 1]) async{
     var url =
-      Uri.https(this._baseUrl, '3/movie/now_playing', {
+      Uri.https(this._baseUrl, endPoint, {
         'api_key': _apiKey,
         'language': _lenguage,
-        'page': '1'
+        'page': '$page'
       });
 
     // Await the http get response, then decode the json-formatted response.
     final response = await http.get(url);
-    final nowPlayingResponse = NowPlayingResponse.fromJson(response.body);
-    //final Map<String, dynamic> decodedData = json.decode(response.body) ;
-    //print(nowPlayingResponse.results[0].title);
+    return response.body;
+  }
+
+  getOnDisplayMovies() async{
+
+    final jsonData = await _getJsonData('3/movie/now_playing');
+    final nowPlayingResponse = NowPlayingResponse.fromJson(jsonData);
+    
     onDisplayMovies = nowPlayingResponse.results;
 
     notifyListeners();
   }
 
   getPopularMovies() async {
-    var url =
-      Uri.https(this._baseUrl, '3/movie/popular', {
-        'api_key': _apiKey,
-        'language': _lenguage,
-        'page': '1'
-      });
+    
+    _popularPage ++;
 
-    // Await the http get response, then decode the json-formatted response.
-    final response = await http.get(url);
-    final popularResponse = PopularResponse.fromJson(response.body);
-    //final Map<String, dynamic> decodedData = json.decode(response.body) ;
-    //print(nowPlayingResponse.results[0].title);
+    final jsonData = await _getJsonData('3/movie/popular');
+    final popularResponse = PopularResponse.fromJson(jsonData);
+
     popularMovies = [...popularMovies ,...popularResponse.results];
     print(popularMovies[0]);
     notifyListeners();
