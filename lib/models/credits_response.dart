@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-class CredistsResponse {
-  CredistsResponse({
+class CreditsResponse {
+  CreditsResponse({
     required this.id,
     required this.cast,
     required this.crew,
@@ -15,11 +15,11 @@ class CredistsResponse {
   List<Cast> cast;
   List<Cast> crew;
 
-  factory CredistsResponse.fromJson(String str) =>
-      CredistsResponse.fromMap(json.decode(str));
+  factory CreditsResponse.fromJson(String str) =>
+      CreditsResponse.fromMap(json.decode(str));
 
-  factory CredistsResponse.fromMap(Map<String, dynamic> json) =>
-      CredistsResponse(
+  factory CreditsResponse.fromMap(Map<String, dynamic> json) =>
+      CreditsResponse(
         id: json["id"],
         cast: List<Cast>.from(json["cast"].map((x) => Cast.fromMap(x))),
         crew: List<Cast>.from(json["crew"].map((x) => Cast.fromMap(x))),
