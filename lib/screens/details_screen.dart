@@ -6,7 +6,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
-    print('Hola' + movie.title);
+    //print('Hola' + movie.title);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -79,14 +79,14 @@ class _PosterAndTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
-
+    
     return Container(
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
           Hero(
-            tag: movie.id,
+            tag: movie.heroId!,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(
