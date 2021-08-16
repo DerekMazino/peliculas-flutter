@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:peliculas/models/models.dart';
+import 'package:peliculas/models/search_movie_response.dart';
 class MoviesProvider extends ChangeNotifier{
 
   String _apiKey = 'a3d671ebb0f9539f9ca31a80b0b59c15';
@@ -23,7 +24,7 @@ class MoviesProvider extends ChangeNotifier{
   }
 
   Future<String> _getJsonData(String endPoint, [int page = 1]) async{
-    var url =
+    final url =
       Uri.https(this._baseUrl, endPoint, {
         'api_key': _apiKey,
         'language': _lenguage,
@@ -67,6 +68,18 @@ class MoviesProvider extends ChangeNotifier{
 
     print('Pidiendo info al sever de los actores');
     return creditsResponse.cast;
+  }
+
+  Future<List<Movie>> searchMovie(String query) async{
+    final url =
+      Uri.https(this._baseUrl, '3/search/movie', {
+        'api_key': _apiKey,
+        'language': _lenguage,
+        'query': query
+      });
+    final response = await http.get(url);
+    final searchMovieResponse  = SearchMovieResponse.fromJson(response.body);
+    return searchMovieResponse.results;
   }
 
 }

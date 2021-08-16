@@ -33,7 +33,7 @@ class CardSwiper extends StatelessWidget {
         itemHeight: size.height * 0.4,
         itemBuilder: ( _ , int index){
           final movie = movies[index];
-          print(movie.title);
+          //print(movie.title);
           return GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details', arguments: movie),
             child: ClipRRect(
